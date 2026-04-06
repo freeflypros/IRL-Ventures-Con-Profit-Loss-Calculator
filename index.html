@@ -5,56 +5,57 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IRL Ventures Con 2026 — Event P&L Calculator</title>
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Segoe UI',Arial,sans-serif;background:#f9f9f9;color:#111;padding:32px;max-width:980px;margin:0 auto}
-  h1{font-size:20px;font-weight:600;margin-bottom:4px}
-  .sub{font-size:13px;color:#888;margin-bottom:32px}
-  .section-head{font-size:15px;font-weight:600;margin:28px 0 12px;border-bottom:1px solid #e5e5e5;padding-bottom:6px;color:#111}
-  .row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
-  .row label{width:200px;flex-shrink:0;color:#666;font-size:13px}
-  .row input[type=range]{flex:1;accent-color:#FA0F00}
-  .row .val{font-size:13px;font-weight:600;min-width:52px;text-align:right;color:#111}
-  .toggle-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap}
-  .toggle-row label{color:#666;font-size:13px}
-  .toggle{display:flex;background:#f0f0f0;border-radius:8px;border:1px solid #ddd;overflow:hidden}
-  .toggle button{border:none;background:none;padding:7px 14px;font-size:12px;cursor:pointer;color:#666}
-  .toggle button.on{background:#fff;color:#111;font-weight:600;border:1px solid #ccc;border-radius:8px}
-  .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}
-  .metric{background:#f4f4f4;border-radius:10px;padding:14px}
-  .metric .mlbl{font-size:11px;color:#888;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
-  .metric .mval{font-size:22px;font-weight:700}
-  .metric .mval.pos{color:#16a34a}
-  .metric .mval.neg{color:#dc2626}
-  .metric .mval.neu{color:#d97706}
-  .breakdown{background:#fff;border:1px solid #e5e5e5;border-radius:10px;overflow:hidden;margin-bottom:20px}
-  .brow{display:flex;justify-content:space-between;padding:9px 16px;border-bottom:1px solid #f0f0f0;font-size:13px}
-  .brow:last-child{border-bottom:none}
-  .brow.head{background:#f9f9f9;font-weight:600;font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.5px}
-  .brow.total{font-weight:700;background:#f4f4f4;font-size:14px}
-  .brow .pos{color:#16a34a;font-weight:600}
-  .brow .neg{color:#dc2626;font-weight:600}
-  .ptable{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:20px;background:#fff;border-radius:10px;overflow:hidden;border:1px solid #e5e5e5}
-  .ptable th{background:#f4f4f4;padding:9px 12px;text-align:left;font-weight:600;font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e5e5e5}
-  .ptable td{padding:8px 12px;border-bottom:1px solid #f0f0f0;color:#333}
-  .ptable tr:last-child td{border-bottom:none}
-  .ptable .tot td{font-weight:700;background:#f4f4f4;color:#111}
-  .sponsor-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
-  .sp-card{background:#f4f4f4;border-radius:10px;padding:12px;text-align:center;border:1px solid #e5e5e5;cursor:pointer;transition:all .15s}
-  .sp-card:hover{border-color:#FA0F00}
-  .sp-card.active{border:2px solid #FA0F00;background:#fff5f5}
-  .sp-card .sp-tier{font-size:11px;color:#888;margin-bottom:3px;text-transform:uppercase;letter-spacing:.5px}
-  .sp-card.active .sp-tier{color:#FA0F00}
-  .sp-card .sp-amt{font-size:15px;font-weight:700;color:#111}
-  .sp-card.active .sp-amt{color:#FA0F00}
-  .sp-card .sp-net{font-size:11px;color:#16a34a;margin-top:3px;font-weight:600}
-  .price-note{font-size:12px;color:#888;margin-bottom:16px;padding:8px 12px;background:#f4f4f4;border-radius:8px;border:1px solid #e5e5e5}
-  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
-  .phase-ref{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:20px;background:#fff;border-radius:10px;overflow:hidden;border:1px solid #e5e5e5}
-  .phase-ref th{background:#f4f4f4;padding:9px 12px;text-align:left;font-weight:600;font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #e5e5e5}
-  .phase-ref td{padding:8px 12px;border-bottom:1px solid #f0f0f0;color:#333}
-  .phase-ref tr:last-child td{border-bottom:none}
-  .phase-ref .normal-row td{color:#16a34a;font-weight:600}
-  @media(max-width:600px){.metrics{grid-template-columns:1fr 1fr}.sponsor-grid{grid-template-columns:1fr 1fr}}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f9f9f9; color: #111; padding: 32px; max-width: 960px; margin: 0 auto; }
+  h1 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+  .sub { font-size: 13px; color: #888; margin-bottom: 32px; }
+  .section-head { font-size: 15px; font-weight: 600; margin: 28px 0 12px; border-bottom: 1px solid #e5e5e5; padding-bottom: 6px; color: #111; }
+  .row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .row label { width: 200px; flex-shrink: 0; color: #666; font-size: 13px; }
+  .row input[type=range] { flex: 1; accent-color: #FA0F00; }
+  .row .val { font-size: 13px; font-weight: 600; min-width: 52px; text-align: right; color: #111; }
+  .toggle-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+  .toggle-row label { color: #666; font-size: 13px; }
+  .toggle { display: flex; background: #f0f0f0; border-radius: 8px; border: 1px solid #ddd; overflow: hidden; }
+  .toggle button { border: none; background: none; padding: 7px 14px; font-size: 12px; cursor: pointer; color: #666; }
+  .toggle button.on { background: #fff; color: #111; font-weight: 600; border: 1px solid #ccc; border-radius: 8px; }
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0; }
+  .metric { background: #f4f4f4; border-radius: 10px; padding: 14px; }
+  .metric .mlbl { font-size: 11px; color: #888; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .metric .mval { font-size: 22px; font-weight: 700; }
+  .metric .mval.pos { color: #16a34a; }
+  .metric .mval.neg { color: #dc2626; }
+  .metric .mval.neu { color: #d97706; }
+  .breakdown { background: #fff; border: 1px solid #e5e5e5; border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
+  .brow { display: flex; justify-content: space-between; padding: 9px 16px; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
+  .brow:last-child { border-bottom: none; }
+  .brow.head { background: #f9f9f9; font-weight: 600; font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+  .brow.total { font-weight: 700; background: #f4f4f4; font-size: 14px; }
+  .brow .pos { color: #16a34a; font-weight: 600; }
+  .brow .neg { color: #dc2626; font-weight: 600; }
+  .phase-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 20px; background: #fff; border-radius: 10px; overflow: hidden; border: 1px solid #e5e5e5; }
+  .phase-table th { background: #f4f4f4; padding: 9px 12px; text-align: left; font-weight: 600; font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #e5e5e5; }
+  .phase-table td { padding: 8px 12px; border-bottom: 1px solid #f0f0f0; color: #333; }
+  .phase-table tr:last-child td { border-bottom: none; }
+  .phase-table .tot td { font-weight: 700; background: #f4f4f4; color: #111; }
+  .sponsor-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 20px; }
+  .sp-card { background: #f4f4f4; border-radius: 10px; padding: 12px; text-align: center; border: 1px solid #e5e5e5; cursor: pointer; transition: all 0.15s; }
+  .sp-card:hover { border-color: #FA0F00; }
+  .sp-card.active { border: 2px solid #FA0F00; background: #fff5f5; }
+  .sp-card .sp-tier { font-size: 11px; color: #888; margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .sp-card.active .sp-tier { color: #FA0F00; }
+  .sp-card .sp-amt { font-size: 15px; font-weight: 700; color: #111; }
+  .sp-card.active .sp-amt { color: #FA0F00; }
+  .sp-card .sp-net { font-size: 11px; color: #16a34a; margin-top: 3px; font-weight: 600; }
+  .price-note { font-size: 12px; color: #888; margin-bottom: 16px; padding: 8px 12px; background: #f4f4f4; border-radius: 8px; border: 1px solid #e5e5e5; }
+  /* ── NEW: static pricing reference table ── */
+  .price-ref-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 20px; background: #fff; border-radius: 10px; overflow: hidden; border: 1px solid #e5e5e5; }
+  .price-ref-table th { background: #f4f4f4; padding: 9px 12px; text-align: left; font-weight: 600; font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #e5e5e5; }
+  .price-ref-table td { padding: 8px 12px; border-bottom: 1px solid #f0f0f0; color: #333; }
+  .price-ref-table tr:last-child td { border-bottom: none; }
+  .price-ref-table .normal-row td { color: #16a34a; font-weight: 600; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+  @media (max-width: 600px) { .metrics { grid-template-columns: 1fr 1fr; } .sponsor-grid { grid-template-columns: 1fr 1fr; } }
 </style>
 </head>
 <body>
@@ -66,14 +67,48 @@
 <div class="row"><label>Convention attendees</label><input type="range" id="con" min="200" max="500" step="50" value="300"><span class="val" id="con-v">300</span></div>
 <div class="row"><label>After-party attendees</label><input type="range" id="party" min="200" max="500" step="50" value="300"><span class="val" id="party-v">300</span></div>
 
+<!-- ── NEW: ticket pricing phases reference table ── -->
 <div class="section-head">Ticket pricing phases</div>
-<table class="phase-ref">
-  <tr><th>Phase</th><th>Dates</th><th>Duration</th><th>Convention</th><th>Party (no drink)</th><th>Party (w/ drink)</th><th>VIP dinner</th></tr>
-  <tr><td><span class="dot" style="background:#4ade80"></span>Early bird</td><td style="color:#999">May 22 – Jul 5</td><td style="color:#999">45 days</td><td>$75</td><td>$12</td><td>$15</td><td>$125</td></tr>
-  <tr class="normal-row"><td><span class="dot" style="background:#60a5fa"></span>Normal price</td><td>Jul 6 – Sep 6</td><td>63 days</td><td>$95</td><td>$17</td><td>$23</td><td>$165</td></tr>
-  <tr><td><span class="dot" style="background:#facc15"></span>Phase 3</td><td style="color:#999">Sep 7 – Oct 18</td><td style="color:#999">42 days</td><td>$115</td><td>$22</td><td>$27</td><td>$179</td></tr>
-  <tr><td><span class="dot" style="background:#fb923c"></span>Phase 4</td><td style="color:#999">Oct 19 – Nov 13</td><td style="color:#999">26 days</td><td>$135</td><td>$28</td><td>$32</td><td>$189</td></tr>
-  <tr><td><span class="dot" style="background:#f87171"></span>Final week</td><td style="color:#999">Nov 14 – Nov 21</td><td style="color:#999">7 days</td><td>$175</td><td>$39</td><td>$39</td><td>$199</td></tr>
+<table class="price-ref-table">
+  <tr>
+    <th>Phase</th>
+    <th>Dates</th>
+    <th>Duration</th>
+    <th>Convention</th>
+    <th>Party (no drink)</th>
+    <th>Party (w/ drink)</th>
+    <th>VIP dinner</th>
+  </tr>
+  <tr>
+    <td><span class="dot" style="background:#4ade80"></span>Early bird</td>
+    <td style="color:#999">May 22 – Jul 5</td>
+    <td style="color:#999">45 days</td>
+    <td>$75</td><td>$12</td><td>$15</td><td>$125</td>
+  </tr>
+  <tr class="normal-row">
+    <td><span class="dot" style="background:#60a5fa"></span>Normal price</td>
+    <td>Jul 6 – Sep 6</td>
+    <td>63 days</td>
+    <td>$95</td><td>$17</td><td>$23</td><td>$165</td>
+  </tr>
+  <tr>
+    <td><span class="dot" style="background:#facc15"></span>Phase 3</td>
+    <td style="color:#999">Sep 7 – Oct 18</td>
+    <td style="color:#999">42 days</td>
+    <td>$115</td><td>$22</td><td>$27</td><td>$179</td>
+  </tr>
+  <tr>
+    <td><span class="dot" style="background:#fb923c"></span>Phase 4</td>
+    <td style="color:#999">Oct 19 – Nov 13</td>
+    <td style="color:#999">26 days</td>
+    <td>$135</td><td>$28</td><td>$32</td><td>$189</td>
+  </tr>
+  <tr>
+    <td><span class="dot" style="background:#f87171"></span>Final week</td>
+    <td style="color:#999">Nov 14 – Nov 21</td>
+    <td style="color:#999">7 days</td>
+    <td>$175</td><td>$39</td><td>$39</td><td>$199</td>
+  </tr>
 </table>
 
 <div class="section-head">After-party drink option</div>
@@ -120,82 +155,92 @@
 <div class="section-head">Cost breakdown</div>
 <div class="breakdown" id="cost-breakdown"></div>
 
-<div class="section-head">Ticket sales by phase</div>
-<table class="ptable" id="phase-table"></table>
+<div class="section-head">Ticket pricing phases</div>
+<table class="phase-table" id="phase-table"></table>
 
 <script>
-  var drinkIncluded=false,dist='mid',sponsorAmt=500;
-  var FIXED={venue:25000,marketing:1000,av:100,additional:500};
-  var PDATES=['May 22 – Jul 5','Jul 6 – Sep 6','Sep 7 – Oct 18','Oct 19 – Nov 13','Nov 14–21'];
-  var PNAMES=['Early bird','Normal','Phase 3','Phase 4','Final week'];
-  var CON=[75,95,115,135,175];
-  var PDRINK=[15,23,27,32,39];
-  var PNODRINK=[12,17,22,28,39];
-  var VIP=[125,165,179,189,199];
-  var DISTS={early:[.40,.30,.15,.10,.05],mid:[.15,.35,.25,.15,.10],late:[.05,.15,.20,.30,.30],even:[.20,.20,.20,.20,.20]};
-  function fmt(n){return'$'+Math.round(n).toLocaleString();}
-  function fmtN(n){return Math.round(n).toLocaleString();}
-  function setDrink(v){
-    drinkIncluded=v;
-    document.getElementById('btn-drink-yes').className=v?'on':'';
-    document.getElementById('btn-drink-no').className=v?'':'on';
-    document.getElementById('price-note').textContent=v
-      ?'With drink: Early bird $15 \u2192 Normal $23 \u2192 Phase 3 $27 \u2192 Phase 4 $32 \u2192 Final week $39'
-      :'No drink: Early bird $12 \u2192 Normal $17 \u2192 Phase 3 $22 \u2192 Phase 4 $28 \u2192 Final week $39';
+  var drinkIncluded = false;
+  var dist = 'mid';
+  var sponsorAmt = 500;
+  var FIXED = { venue: 25000, marketing: 1000, av: 100, additional: 500 };
+  var PHASE_DATES = ['May 22 – Jul 5','Jul 6 – Sep 6','Sep 7 – Oct 18','Oct 19 – Nov 13','Nov 14–21'];
+  var PHASE_NAMES = ['Early bird','Normal','Phase 3','Phase 4','Final week'];
+  var CON_PRICES = [75, 95, 115, 135, 175];
+  var PARTY_DRINK =    [15, 23, 27, 32, 39];
+  var PARTY_NO_DRINK = [12, 17, 22, 28, 39];
+  var VIP_PRICES = [125, 165, 179, 189, 199];
+  var DISTS = {
+    early: [0.40, 0.30, 0.15, 0.10, 0.05],
+    mid:   [0.15, 0.35, 0.25, 0.15, 0.10],
+    late:  [0.05, 0.15, 0.20, 0.30, 0.30],
+    even:  [0.20, 0.20, 0.20, 0.20, 0.20]
+  };
+  function fmt(n) { return '$' + Math.round(n).toLocaleString(); }
+  function fmtN(n) { return Math.round(n).toLocaleString(); }
+  function setDrink(v) {
+    drinkIncluded = v;
+    document.getElementById('btn-drink-yes').className = v ? 'on' : '';
+    document.getElementById('btn-drink-no').className = v ? '' : 'on';
+    document.getElementById('price-note').textContent = v
+      ? 'With drink: Early bird $15 \u2192 Normal $23 \u2192 Phase 3 $27 \u2192 Phase 4 $32 \u2192 Final week $39'
+      : 'No drink: Early bird $12 \u2192 Normal $17 \u2192 Phase 3 $22 \u2192 Phase 4 $28 \u2192 Final week $39';
     calc();
   }
-  function setDist(d){
-    dist=d;
-    ['early','mid','late','even'].forEach(function(x){document.getElementById('btn-'+x).className=x===d?'on':'';});
+  function setDist(d) {
+    dist = d;
+    ['early','mid','late','even'].forEach(function(x) { document.getElementById('btn-'+x).className = x===d?'on':''; });
     calc();
   }
-  function setSponsor(a){
-    sponsorAmt=a;
-    [500,1000,2500,5000,10000].forEach(function(x){document.getElementById('sp-'+x).className='sp-card'+(x===a?' active':'');});
+  function setSponsor(a) {
+    sponsorAmt = a;
+    [500,1000,2500,5000,10000].forEach(function(x) { document.getElementById('sp-'+x).className = 'sp-card'+(x===a?' active':''); });
     calc();
   }
-  function calc(){
-    var ca=parseInt(document.getElementById('con').value);
-    var pa=parseInt(document.getElementById('party').value);
-    var d=DISTS[dist],pp=drinkIncluded?PDRINK:PNODRINK;
-    var cr=0,pr=0,vr=0,cP=[],pP=[],vP=[];
-    for(var i=0;i<5;i++){
-      var ct=Math.round(ca*d[i]),pt=Math.round(pa*d[i]),vt=Math.round(20*d[i]);
-      cP.push({t:ct,p:CON[i],r:ct*CON[i]});
-      pP.push({t:pt,p:pp[i],r:pt*pp[i]});
-      vP.push({t:vt,p:VIP[i],r:vt*VIP[i]});
-      cr+=ct*CON[i];pr+=pt*pp[i];vr+=vt*VIP[i];
+  function calc() {
+    var conAtt = parseInt(document.getElementById('con').value);
+    var partyAtt = parseInt(document.getElementById('party').value);
+    var d = DISTS[dist];
+    var pp = drinkIncluded ? PARTY_DRINK : PARTY_NO_DRINK;
+    var conRev=0, partyRev=0, vipRev=0;
+    var conP=[], partyP=[], vipP=[];
+    for (var i=0;i<5;i++) {
+      var ct=Math.round(conAtt*d[i]), pt=Math.round(partyAtt*d[i]), vt=Math.round(20*d[i]);
+      conP.push({t:ct,p:CON_PRICES[i],r:ct*CON_PRICES[i]});
+      partyP.push({t:pt,p:pp[i],r:pt*pp[i]});
+      vipP.push({t:vt,p:VIP_PRICES[i],r:vt*VIP_PRICES[i]});
+      conRev+=ct*CON_PRICES[i]; partyRev+=pt*pp[i]; vipRev+=vt*VIP_PRICES[i];
     }
-    var sr=sponsorAmt*10,sd=1000,tr=cr+pr+vr+sr;
-    var fees=(cr+pr+vr)*0.06,dc=drinkIncluded?pa*8:0;
-    var tc=FIXED.venue+FIXED.marketing+FIXED.av+FIXED.additional+fees+dc+3000+2000+sd;
-    var net=tr-tc;
-    document.getElementById('m-rev').textContent=fmt(tr);
-    document.getElementById('m-cost').textContent=fmt(tc);
+    var sponsorRev=sponsorAmt*10, sponsorDinner=1000, totalRev=conRev+partyRev+vipRev+sponsorRev;
+    var fees=(conRev+partyRev+vipRev)*0.06;
+    var drinkCost=drinkIncluded?partyAtt*8:0;
+    var totalCosts=FIXED.venue+FIXED.marketing+FIXED.av+FIXED.additional+fees+drinkCost+3000+2000+sponsorDinner;
+    var net=totalRev-totalCosts;
+    document.getElementById('m-rev').textContent=fmt(totalRev);
+    document.getElementById('m-cost').textContent=fmt(totalCosts);
     var ne=document.getElementById('m-net');
     ne.textContent=(net>=0?'+':'')+fmt(net);
     ne.className='mval '+(net>0?'pos':net<0?'neg':'neu');
-    document.getElementById('m-be').textContent=fmtN(Math.ceil(tc/95))+' tix';
+    document.getElementById('m-be').textContent=fmtN(Math.ceil(totalCosts/95))+' tix';
     var rh='<div class="brow head"><span>Source</span><span>Amount</span></div>';
-    rh+='<div class="brow"><span>Convention tickets ('+fmtN(ca)+')</span><span class="pos">'+fmt(cr)+'</span></div>';
-    rh+='<div class="brow"><span>After-party tickets ('+fmtN(pa)+')</span><span class="pos">'+fmt(pr)+'</span></div>';
-    rh+='<div class="brow"><span>VIP dinner tickets (20 sold)</span><span class="pos">'+fmt(vr)+'</span></div>';
-    rh+='<div class="brow"><span>Sponsor contributions (10 x '+fmt(sponsorAmt)+')</span><span class="pos">'+fmt(sr)+'</span></div>';
-    rh+='<div class="brow total"><span>Total revenue</span><span class="pos">'+fmt(tr)+'</span></div>';
+    rh+='<div class="brow"><span>Convention tickets ('+fmtN(conAtt)+')</span><span class="pos">'+fmt(conRev)+'</span></div>';
+    rh+='<div class="brow"><span>After-party tickets ('+fmtN(partyAtt)+')</span><span class="pos">'+fmt(partyRev)+'</span></div>';
+    rh+='<div class="brow"><span>VIP dinner tickets (20 sold)</span><span class="pos">'+fmt(vipRev)+'</span></div>';
+    rh+='<div class="brow"><span>Sponsor contributions (10 x '+fmt(sponsorAmt)+')</span><span class="pos">'+fmt(sponsorRev)+'</span></div>';
+    rh+='<div class="brow total"><span>Total revenue</span><span class="pos">'+fmt(totalRev)+'</span></div>';
     document.getElementById('rev-breakdown').innerHTML=rh;
-    var rows=[['Convention venue',fmt(FIXED.venue)],['VIP dinner — 30 free guests',fmt(3000)],['VIP dinner — 20 paid guests',fmt(2000)],['VIP dinner — 10 sponsor guests',fmt(sd)]];
-    if(drinkIncluded)rows.push(['After-party drinks ($8 x '+fmtN(pa)+')',fmt(dc)]);
+    var rows=[['Convention venue',fmt(FIXED.venue)],['VIP dinner — 30 free guests',fmt(3000)],['VIP dinner — 20 paid guests',fmt(2000)],['VIP dinner — 10 sponsor guests',fmt(sponsorDinner)]];
+    if(drinkIncluded) rows.push(['After-party drinks ($8 x '+fmtN(partyAtt)+')',fmt(drinkCost)]);
     rows.push(['Marketing & advertising',fmt(FIXED.marketing)],['A/V equipment',fmt(FIXED.av)],['Ticketing fees (~6%)',fmt(fees)],['Additional costs',fmt(FIXED.additional)]);
     var ch='<div class="brow head"><span>Item</span><span>Amount</span></div>';
     rows.forEach(function(r){ch+='<div class="brow"><span>'+r[0]+'</span><span class="neg">'+r[1]+'</span></div>';});
-    ch+='<div class="brow total"><span>Total costs</span><span class="neg">'+fmt(tc)+'</span></div>';
+    ch+='<div class="brow total"><span>Total costs</span><span class="neg">'+fmt(totalCosts)+'</span></div>';
     document.getElementById('cost-breakdown').innerHTML=ch;
     var ph='<tr><th>Phase</th><th>Dates</th><th>Con price</th><th>Con tix</th><th>Party price</th><th>Party tix</th><th>VIP price</th><th>Phase revenue</th></tr>';
     for(var i=0;i<5;i++){
-      var rv=cP[i].r+pP[i].r+vP[i].r;
-      ph+='<tr'+(i===4?' class="tot"':'')+'><td>'+PNAMES[i]+'</td><td style="color:#999">'+PDATES[i]+'</td><td>'+fmt(cP[i].p)+'</td><td>'+fmtN(cP[i].t)+'</td><td>'+fmt(pP[i].p)+'</td><td>'+fmtN(pP[i].t)+'</td><td>'+fmt(vP[i].p)+'</td><td style="font-weight:700">'+fmt(rv)+'</td></tr>';
+      var pr=conP[i].r+partyP[i].r+vipP[i].r;
+      ph+='<tr'+(i===4?' class="tot"':'')+'><td>'+PHASE_NAMES[i]+'</td><td style="color:#999">'+PHASE_DATES[i]+'</td><td>'+fmt(conP[i].p)+'</td><td>'+fmtN(conP[i].t)+'</td><td>'+fmt(partyP[i].p)+'</td><td>'+fmtN(partyP[i].t)+'</td><td>'+fmt(vipP[i].p)+'</td><td style="font-weight:700">'+fmt(pr)+'</td></tr>';
     }
-    ph+='<tr class="tot"><td colspan="3">Totals</td><td>'+fmtN(ca)+'</td><td></td><td>'+fmtN(pa)+'</td><td></td><td style="font-weight:700">'+fmt(cr+pr+vr)+'</td></tr>';
+    ph+='<tr class="tot"><td colspan="3">Totals</td><td>'+fmtN(conAtt)+'</td><td></td><td>'+fmtN(partyAtt)+'</td><td></td><td style="font-weight:700">'+fmt(conRev+partyRev+vipRev)+'</td></tr>';
     document.getElementById('phase-table').innerHTML=ph;
   }
   document.getElementById('con').addEventListener('input',function(){document.getElementById('con-v').textContent=this.value;calc();});
